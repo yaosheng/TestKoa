@@ -8,12 +8,29 @@ const routes = require('./routes');
 app.use(logger());
 app.use(bodyParser());
 
-app.use(routes.routes(), routes.allowedMethods());
-
-app.use(ctx => {
+app.use(async(ctx, next) => {
     ctx.body = 'hello';
+    console.log("start timeout");
+    await wait();
+    if(true){
+        // ctx.throw('error', 404);
+        next();
+    }else{
+        ctx.throw('error', 404);
+    }
 });
 
+const delay = (interval) => {
+    return new Promise((resolve) => {
+        setTimeout(resolve, interval);
+    });
+};
+
+let wait = async function () {
+    await delay(1000);
+}
+
+app.use(routes.routes(), routes.allowedMethods());
 
 app.listen(port, (err, result) => {
     if(err){

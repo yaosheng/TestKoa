@@ -4,21 +4,20 @@ const logger = require("koa-logger");
 const app = new koa();
 const port = process.env.PORT || 3333;
 const routes = require('./routes');
+const verify = require('./api/verify').verify;
 
 app.use(logger());
 app.use(bodyParser());
 
 app.use(async(ctx, next) => {
-    // ctx.body = 'hello';
     console.log("start timeout");
     await wait();
-    if(true){
+    let result = await verify(ctx);
+    console.log('​result', result);
+    if(result){
         next();
-        // ctx.response = "ok";
-        // console.log('​ctx.response', ctx.response);
-        // ctx.body = "ok";
     }else{
-        ctx.throw('error', 404);
+        ctx.response.body = {status : 4001, message : "super error"};
     }
 });
 

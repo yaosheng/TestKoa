@@ -1,20 +1,12 @@
 const Router = require('koa-router');
 const router = new Router();
-const fs = require('fs');
-const path = require('path');
-const apiDirPath = './api'
+// const fs = require('fs');
+// const path = require('path');
+// const apiDirPath = './api'
 const apiActionPath = '../api';
+const verify = require('../api/verify').verify;
 
-// router.get('/loginByFacebook', async ctx => {
-//     console.log('​ctx', ctx);
-//     console.log("request : ", ctx.request.query);
-//     ctx.body = 'first';
-//     console.log("first");
-//     fc();
-// })
-
-router.get('/*', async (ctx) => {
-    ctx.body = "get";
+router.get('/*', async (ctx) => {    
     console.log('​ctx', ctx.request.url);
     let url = ctx.request.url.split('/')
     console.log('​url', url);
@@ -30,7 +22,7 @@ router.get('/*', async (ctx) => {
     
     let res = await model[action](ctx);
     console.log('​res', res);
-    ctx.body = res;
+    ctx.response.body = res;
     // fs.readdir(apiDirPath, (err, dirs) => {
     //     if(err){
     //         throw err;

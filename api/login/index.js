@@ -1,16 +1,15 @@
 
-let loginByToen = async function (data, next) {  
+let loginByToen = async data => {  
     console.log('loginByToen'); 
     return {status : 1, name : "loginByToen"};
 }
 
-let loginByPassword = async function(data, next) {
+let loginByPassword = async data => {
     console.log('loginByPassword');
     return {status : 1, name : "loginByPassword"};
 }
 
-let loginByFacebook = async function (data, next) {  
-    // console.log('​data', data);
+let loginByFacebook = async data => {  
     console.log('loginByFacebook');
     return new Promise( (reslove, reject) => {
         let res = {status : 1, name : "loginByFacebook"};
@@ -18,7 +17,7 @@ let loginByFacebook = async function (data, next) {
     })
 }
 
-let loginByGoogle = async function (data) {  
+let loginByGoogle = async data => {  
     console.log('​loginByGoogle');
     return new Promise( (reslove, reject) => {
         let res = {status : 1, name : "loginByGoogle"};

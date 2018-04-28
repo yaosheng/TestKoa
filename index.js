@@ -9,12 +9,14 @@ app.use(logger());
 app.use(bodyParser());
 
 app.use(async(ctx, next) => {
-    ctx.body = 'hello';
+    // ctx.body = 'hello';
     console.log("start timeout");
     await wait();
     if(true){
-        // ctx.throw('error', 404);
         next();
+        // ctx.response = "ok";
+        // console.log('​ctx.response', ctx.response);
+        // ctx.body = "ok";
     }else{
         ctx.throw('error', 404);
     }
@@ -27,7 +29,7 @@ const delay = (interval) => {
 };
 
 let wait = async function () {
-    await delay(1000);
+    await delay(2000);
 }
 
 app.use(routes.routes(), routes.allowedMethods());

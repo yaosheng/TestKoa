@@ -1,37 +1,25 @@
 
-// import {verity} from "./api/verify";
 const koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const logger = require("koa-logger");
-const md5 = require('crypto-js/md5');
-const port = process.env.PORT || 3333;
 const routes = require('./routes');
-const verify = require('./api/verify').verify;
-// import {verity} from './api/verify'
+const verify4Url = require('./services/tools/verify').verify4Url;
+const verify4Parameter = require('./services/tools/verify').verify4Parameter;
+
+const port = process.env.PORT || 3333;
 const app = new koa();
 
 app.use(logger());
 app.use(bodyParser());
 
-// console.log('global : ', global);
-
-app.use(async (ctx, next) => {
+app.use(async (ctx, next) => {    
     console.log("start request");
     let key = md5("a" + "b").toString();
     console.log('key', key);
     
     await wait();
-    let result = await verify(ctx);
-    console.log('​result', result);
-    if (result) {
-        next();
-        console.log("finish request");
-    } else {
-        ctx.response.body = {
-            status: 4001,
-            message: "super error"
-        };
-    }
+    await next();
+    console.log("end request");
 });
 
 const delay = (interval) => {
@@ -43,13 +31,14 @@ const delay = (interval) => {
 let wait = async function () {
     await delay(1000);
 }
-
+app.use(verify4Url.routes(), verify4Url.allowedMethods());
+app.use(verify4Parameter.routes(), verify4Parameter.allowedMethods());
 app.use(routes.routes(), routes.allowedMethods());
 
 app.listen(port, (err, result) => {
     if (err) {
         console.log("err : ", err);
     } else {
-        console.log("server is listening by %s", port);
+        console.log("server is listening on port:%s", port);
     }
 });

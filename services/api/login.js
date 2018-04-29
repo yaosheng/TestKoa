@@ -1,6 +1,6 @@
 
 let loginByToken = async data => {  
-    console.log('loginByToken'); 
+    await console.log('loginByToken'); 
     return {status : 1, name : "loginByToken"};
 }
 
@@ -10,8 +10,8 @@ let loginByPassword = async data => {
 }
 
 let loginByFacebook = async data => {  
-    console.log('loginByFacebook');
     return new Promise( (reslove, reject) => {
+        console.log('loginByFacebook');
         let res = {status : 1, name : "loginByFacebook"};
         reslove(res);
     })
@@ -24,11 +24,6 @@ let loginByGoogle = async data => {
         reslove(res);
     })
 }
-
-// export const loginByToken = loginByToken;
-// export const loginByPassword = loginByPassword;
-// export const loginByFacebook = loginByFacebook;
-// export const loginByGoogle = loginByGoogle;
 
 module.exports = {
     loginByToken : loginByToken,

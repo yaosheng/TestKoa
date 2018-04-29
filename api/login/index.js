@@ -1,7 +1,7 @@
 
-let loginByToen = async data => {  
-    console.log('loginByToen'); 
-    return {status : 1, name : "loginByToen"};
+let loginByToken = async data => {  
+    console.log('loginByToken'); 
+    return {status : 1, name : "loginByToken"};
 }
 
 let loginByPassword = async data => {
@@ -25,9 +25,13 @@ let loginByGoogle = async data => {
     })
 }
 
+// export const loginByToken = loginByToken;
+// export const loginByPassword = loginByPassword;
+// export const loginByFacebook = loginByFacebook;
+// export const loginByGoogle = loginByGoogle;
 
 module.exports = {
-    loginByToen : loginByToen,
+    loginByToken : loginByToken,
     loginByPassword : loginByPassword,
     loginByFacebook : loginByFacebook,
     loginByGoogle : loginByGoogle
